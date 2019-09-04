@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .Application .card {
+            transition: all ease-in-out 0.4s;
+            display: none;
+        }
+
+        .Application .active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="Application container">
+<h1 class="display-1">JS BASICS</h1>
+<p>I want to first go over some core concepts that will start you thinking about why you looking at upping your JS
+    game.</p>
+<p>It's likely you have been doing most of your work on a "per page" basis, which is fine, but could be so much
+    more.</p>
+<div class="buttons-component text-center"></div>
+<hr/>
+
+<!-- CARD -->
+<div class="card">
+    <div class="card-body">
+
+        <h2>The principles of modern JS</h2>
+        <p>The first step is to understand where that approach falls short:</p>
+        <ul>
+            <li>In large sites the amount of code needed to power one page can become significant.</li>
+            <li>Often a lot of code duplication to initialize plug-ins, etc that are likely the same setup.</li>
+            <li>Site-wide changes to a common feature (like a header) is harder to update and maintain, often going out
+                of
+                sync.
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- CARD -->
+<div class="card">
+    <div class="card-body">
+        <h2>How does modern development try to solve this?</h2>
+        <ul>
+            <li>Modularization - break things down into their smallest, reusable parts</li>
+            <li>Encapsulation - have a part manage it's own affairs, the rest of the site should consider it a "black
+                box" where
+                something may go in and something may come out, but the inner workings are hidden to the rest of the
+                site.
+            </li>
+            <li>Communication - allow parts to be able to communicate when needed.</li>
+        </ul>
+
+        <div class="jumbotron">
+
+            <p class="lead text-center">These parts are called "components"</p>
+        </div>
+    </div>
+</div>
+
+<!-- CARD -->
+<div class="card">
+    <div class="card-body">
+        <h2>What is a component?</h2>
+        <p>A component is comprised of up to 3 things:</p>
+        <ul>
+            <li>It's own template/display content: HTML</li>
+            <li>It's own behavior/supplemental data: JS</li>
+            <li>It's own styling: CSS</li>
+        </ul>
+        <pre class="jumbotron">
+        <code>
+class Buttons {
+    template = `
+        &lt;style&gt;
+            .buttons-component button {
+                width: 200px;
+            }
+        &lt;/style&gt;
+        &lt;div class="btn-group"&gt;
+            &lt;button class="prev"&gt;Prev&lt;/button&gt;
+            &lt;button class="next"&gt;Next&lt;/button&gt;
+        &lt;/div&gt;
+    `;
+
+    constructor(parent) {
+        this.$el = parent;
+        this.contents = new DOMParser().parseFromString(this.template, 'text/html');
+        this.$el.appendChild(document.createRange().createContextualFragment(this.contents.documentElement.innerHTML));
+
+        this.$next = this.$el.querySelector('.next');
+        this.$next.classList.add('btn', 'btn-primary');
+        this.$next.addEventListener('click', this.next.bind(this));
+
+        this.$prev = this.$el.querySelector('.prev');
+        this.$prev.classList.add('btn', 'btn-primary');
+        this.$prev.addEventListener('click', this.prev.bind(this));
+
+
+        this.$el.addEventListener('slideUpdate', (event) =&gt; {
+            this.updateButtons(event);
+        })
+    }
+
+    updateButtons(event) {
+        console.log(event.detail);
+        if (event.detail.next) {
+            this.$next.removeAttribute('disabled');
+        } else {
+            this.$next.setAttribute('disabled', 'disabled');
+        }
+        if (event.detail.prev) {
+            this.$prev.removeAttribute('disabled');
+        } else {
+            this.$prev.setAttribute('disabled', 'disabled');
+        }
+    }
+
+    next() {
+        const evt = new Event('next', {"bubbles": true, "cancelable": false});
+        this.$el.dispatchEvent(evt);
+    }
+
+    prev() {
+        const evt = new Event('prev', {"bubbles": true, "cancelable": false});
+        this.$el.dispatchEvent(evt);
+    }
+}
+        </code>
+    </pre>
+    </div>
+</div>
+
+<!-- CARD -->
+<div class="card">
+    <div class="card-body">
+
+        <h2>So what should I learn?</h2>
+        <p>Before you tackle any of the flavour-of-the-month "frameworks", learn the basics of modern JS</p>
+        <p>Some resources to bookmark:</p>
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/">MDN</a>: perhaps the most important link of all, shows you how EVERYTHING JS works</li>
+            <li><a href="https://www.youtube.com/results?search_query=learn+javascript">Youtube</a>: thousands of JS video tutorials</li>
+            <li><a href="https://www.udacity.com/course/intro-to-javascript--ud803">Udacity</a>: Free JS Course</li>
+            <li><a href="https://www.freecodecamp.org/news/search/?query=javascript">freecodecamp</a>: Articles on a huge array of developer content.</li>
+        </ul>
+    </div>
+</div>
+
+<script src="scripts/application.js"></script>
+<script src="scripts/buttons.js"></script>
+<script src="scripts/slide.js"></script>
+<link rel="stylesheet"
+       href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+<script>
+	function readyCallback() {
+		window.app = new Application();
+		hljs.initHighlightingOnLoad();
+	}
+
+	document.addEventListener('DOMContentLoaded', readyCallback);
+
+</script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</body>
+</html>
