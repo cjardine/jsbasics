@@ -142,10 +142,16 @@ class Buttons {
         <p>Before you tackle any of the flavour-of-the-month "frameworks", learn the basics of modern JS</p>
         <p>Some resources to bookmark:</p>
         <ul>
-            <li><a href="https://developer.mozilla.org/en-US/">MDN</a>: perhaps the most important link of all, shows you how EVERYTHING JS works</li>
-            <li><a href="https://www.youtube.com/results?search_query=learn+javascript">Youtube</a>: thousands of JS video tutorials</li>
+            <li><a href="https://developer.mozilla.org/en-US/">MDN</a>: perhaps the most important link of all, shows
+                you how EVERYTHING JS works
+            </li>
+            <li><a href="https://www.youtube.com/results?search_query=learn+javascript">Youtube</a>: thousands of JS
+                video tutorials
+            </li>
             <li><a href="https://www.udacity.com/course/intro-to-javascript--ud803">Udacity</a>: Free JS Course</li>
-            <li><a href="https://www.freecodecamp.org/news/search/?query=javascript">freecodecamp</a>: Articles on a huge array of developer content.</li>
+            <li><a href="https://www.freecodecamp.org/news/search/?query=javascript">freecodecamp</a>: Articles on a
+                huge array of developer content.
+            </li>
         </ul>
     </div>
 </div>
@@ -154,16 +160,24 @@ class Buttons {
 <script src="scripts/buttons.js"></script>
 <script src="scripts/slide.js"></script>
 <link rel="stylesheet"
-       href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
 <script>
+	function nate() {
+		console.log(`this is our function`);
+	}
+
 	function readyCallback() {
 		window.app = new Application();
 		hljs.initHighlightingOnLoad();
 	}
 
+	// $('button.next').on('click',nate );
+	var cards = document.querySelectorAll('.card');
+	cards.forEach(function (card, index, array) {
+		card.addEventListener('click', nate);
+	});
 	document.addEventListener('DOMContentLoaded', readyCallback);
-
 </script>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"

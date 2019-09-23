@@ -38,6 +38,7 @@ class Application {
 				}
 				this.slides.next = (slideNumber < this.$slides.length - 1);
 				this.slides.prev = (slideNumber > 0);
+
 			}
 		});
 		const evt = new CustomEvent('slideUpdate', {detail: this.slides});
